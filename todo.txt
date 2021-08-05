@@ -1,0 +1,6 @@
+Curso Udemy
+Descomplicando Restful APIs com Laravel
+Next:
+7. Nosso primeiro json - Método GET
+link:
+https://www.udemy.com/course/descomplicando-apis-com-laravel/learn/lecture/14522480#overview
