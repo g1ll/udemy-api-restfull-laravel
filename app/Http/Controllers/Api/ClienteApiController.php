@@ -18,7 +18,7 @@ class ClienteApiController extends Controller
     {
         // return response()->json('Hello, World!!!');
         $data = $this->cliente->all();
-        dd($data);
-
+        // dd($data);
+        return response()->json($data);
     }
 }
