@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class ClienteApiController extends Controller
 {
-    //
+    public function index()
+    {
+        return response()->json('Hello, World!!!');
+    }
 }
