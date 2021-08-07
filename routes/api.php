@@ -21,5 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
-
-
+Route::apiResource('clientes',ClienteApiController::class);
