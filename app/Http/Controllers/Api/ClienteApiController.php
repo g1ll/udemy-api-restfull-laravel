@@ -31,9 +31,12 @@ class ClienteApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $this->validate($this->req,$this->cliente->rules());
+        $dataForm = $this->req->all();
+        $data = $this->cliente->create($dataForm);
+        return response()->json($data,201);
     }
 
     /**
