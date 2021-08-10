@@ -68,9 +68,9 @@ class ClienteApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cliente $cliente)
     {
-        $cliente = $this->cliente->find($id);
+        // $cliente = $this->cliente->find($id);
         // $cliente = Cliente::find($id);
         return response()->json($cliente);
     }
