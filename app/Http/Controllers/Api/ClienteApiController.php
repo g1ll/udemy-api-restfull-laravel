@@ -35,6 +35,12 @@ class ClienteApiController extends Controller
     {
         $this->validate($this->req,$this->cliente->rules());
         $dataForm = $this->req->all();
+        if($this->req->hasFile('image') && $this->req->file('image')->isValid()){
+            $extension = $this->req->image->extension();
+            $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
+            $nameFile = "$imgName$extension";
+
+        }
         $data = $this->cliente->create($dataForm);
         return response()->json($data,201);
     }
