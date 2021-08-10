@@ -68,13 +68,13 @@ class ClienteApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show(Cliente $cliente)
-    public function show($id)
+    public function show(Cliente $cliente)
+    // public function show($id)
     {
-        $cliente = $this->cliente->find($id);
-        if(!$cliente){
-            return response()->json(['error'=>'Id inválido!'],404);
-        }
+        // $cliente = $this->cliente->find($id);
+        // if(!$cliente){
+        //     return response()->json(['error'=>'Id inválido!'],404);
+        // }
         // $cliente = Cliente::find($id);
         return response()->json($cliente);
     }
