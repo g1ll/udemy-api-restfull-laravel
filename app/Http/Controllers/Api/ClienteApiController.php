@@ -41,7 +41,7 @@ class ClienteApiController extends Controller
             if($this->req->hasFile('image')){// && $this->req->file('image')->isValid()){
                 $extension = $this->req->image->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
-                $nameFile = "$imgName$extension";
+                $nameFile = "$imgName.$extension";
                 $upload = Image::make($this->req->image)->resize(177,236)
                     ->save(storage_path("app/public/clientes/$nameFile"),70);
                 if(!$upload){
