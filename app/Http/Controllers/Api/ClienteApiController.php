@@ -43,6 +43,11 @@ class ClienteApiController extends Controller
             $nameFile = "$imgName$extension";
             $upload = Image::make($dataForm['image'])->resize(177,236)
                 ->save(storage_path("app/public/clientes/$nameFile"),70);
+            if(!$upload){
+                return response()->json(['error','Uplado of file fail!'],500);
+            }else{
+                $dataForm['image'] = $nameFile;
+            }
         }
         $data = $this->cliente->create($dataForm);
         return response()->json($data,201);
