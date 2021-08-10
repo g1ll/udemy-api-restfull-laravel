@@ -41,7 +41,8 @@ class ClienteApiController extends Controller
             $extension = $this->req->image->extension();
             $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
             $nameFile = "$imgName$extension";
-
+            $upload = Image::make($dataForm['image'])->resize(177,236)
+                ->save(storage_path("app/public/clientes/$nameFile"));
         }
         $data = $this->cliente->create($dataForm);
         return response()->json($data,201);
