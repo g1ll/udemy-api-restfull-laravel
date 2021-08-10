@@ -75,7 +75,7 @@ class ClienteApiController extends Controller
             (!$cliente) ?
                 ['error' => 'Id inválido!']
                 : $cliente,
-            404
+                (!$cliente) ?404:200
         );
     }
 
