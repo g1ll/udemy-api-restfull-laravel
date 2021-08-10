@@ -72,10 +72,8 @@ class ClienteApiController extends Controller
     {
         $cliente = $this->cliente->find($id);
         return response()->json(
-            (!$cliente) ?
-                ['error' => 'Id inválido!']
-                : $cliente,
-                (!$cliente) ?404:200
+            (!$cliente) ? ['error' => 'Id inválido!'] : $cliente,
+            (!$cliente) ? 404 : 200
         );
     }
 
@@ -99,6 +97,14 @@ class ClienteApiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!$cliente = $this->cliente->find($id))
+            return response()->json(['error'=>'Id inválido!'],404);
+
+        if($cliente->image)
+            Storage::disk('public')->delete("clientes/$cliente->image");
+
+        $cliente->delete();
+        return response()->json(['success'=>'Cliente removido!']);
+
     }
 }
