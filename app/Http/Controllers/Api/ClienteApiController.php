@@ -14,7 +14,7 @@ class ClienteApiController extends Controller
     {
         $this->cliente = $cliente;
         $this->req=$req;
-        $this->model = new Cliente();
+        // $this->model = new Cliente();
     }
 
     /**
@@ -70,7 +70,8 @@ class ClienteApiController extends Controller
      */
     public function show($id)
     {
-        $cliente = $this->model->find($id);
+        //$cliente = $this->model->find($id);
+        $cliente = Cliente::find($id);
         return response()->json($cliente);
     }
 
