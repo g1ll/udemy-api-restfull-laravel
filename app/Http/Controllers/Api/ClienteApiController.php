@@ -37,17 +37,19 @@ class ClienteApiController extends Controller
     {
         $this->validate($this->req,$this->cliente->rules());
         $dataForm = $this->req->all();
-        if($this->req->hasFile('image') && $this->req->file('image')->isValid()){
+        if($this->req->hasFile('image')){// && $this->req->file('image')->isValid()){
             $extension = $this->req->image->extension();
             $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
             $nameFile = "$imgName$extension";
-            $upload = Image::make($dataForm['image'])->resize(177,236)
+            $upload = Image::make($this->req->image)->resize(177,236)
                 ->save(storage_path("app/public/clientes/$nameFile"),70);
             if(!$upload){
                 return response()->json(['error','Uplado of file fail!'],500);
             }else{
                 $dataForm['image'] = $nameFile;
             }
+        }else{
+            return response()->json(['error'=>'Upload image fail!'],400);
         }
         $data = $this->cliente->create($dataForm);
         return response()->json($data,201);
