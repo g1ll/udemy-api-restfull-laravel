@@ -14,6 +14,7 @@ class ClienteApiController extends Controller
     {
         $this->cliente = $cliente;
         $this->req=$req;
+        $this->model = new Cliente();
     }
 
     /**
@@ -37,6 +38,7 @@ class ClienteApiController extends Controller
     {
         $this->validate($this->req,$this->cliente->rules());
         $dataForm = $this->req->all();
+        // return response()->json($dataForm,201);
         try{
             if($this->req->hasFile('image')){// && $this->req->file('image')->isValid()){
                 $extension = $this->req->image->extension();
@@ -68,7 +70,8 @@ class ClienteApiController extends Controller
      */
     public function show($id)
     {
-        //
+        $cliente = $this->model->find($id);
+        return response()->json($cliente);
     }
 
     /**
