@@ -13,7 +13,7 @@ class ClienteApiController extends Controller
     public function __construct(Cliente $cliente, Request $req)
     {
         $this->cliente = $cliente;
-        $this->req=$req;
+        $this->req = $req;
         // $this->model = new Cliente();
     }
 
@@ -36,30 +36,30 @@ class ClienteApiController extends Controller
      */
     public function store()
     {
-        $this->validate($this->req,$this->cliente->rules());
+        $this->validate($this->req, $this->cliente->rules());
         $dataForm = $this->req->all();
         // return response()->json($dataForm,201);
-        try{
-            if($this->req->hasFile('image')){// && $this->req->file('image')->isValid()){
+        try {
+            if ($this->req->hasFile('image')) { // && $this->req->file('image')->isValid()){
                 $extension = $this->req->image->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
-                $upload = Image::make($this->req->image)->resize(177,236)
-                    ->save(storage_path("app/public/clientes/$nameFile"),70);
-                if(!$upload){
-                    return response()->json(['error','Uplado of file fail!'],500);
-                }else{
+                $upload = Image::make($this->req->image)->resize(177, 236)
+                    ->save(storage_path("app/public/clientes/$nameFile"), 70);
+                if (!$upload) {
+                    return response()->json(['error', 'Uplado of file fail!'], 500);
+                } else {
                     $dataForm['image'] = $nameFile;
                 }
-            }else{
-                return response()->json(['error'=>'Upload image fail!'],400);
+            } else {
+                return response()->json(['error' => 'Upload image fail!'], 400);
             }
-        }catch(Exception $error){
-            return response()->json(['error'=>$error->getMessage()],400);
+        } catch (Exception $error) {
+            return response()->json(['error' => $error->getMessage()], 400);
         }
 
         $data = $this->cliente->create($dataForm);
-        return response()->json($data,201);
+        return response()->json($data, 201);
     }
 
     /**
@@ -68,15 +68,15 @@ class ClienteApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
-    // public function show($id)
+    public function show($id)
     {
-        // $cliente = $this->cliente->find($id);
-        // if(!$cliente){
-        //     return response()->json(['error'=>'Id inválido!'],404);
-        // }
-        // $cliente = Cliente::find($id);
-        return response()->json($cliente);
+        $cliente = $this->cliente->find($id);
+        return response()->json(
+            (!$cliente) ?
+                ['error' => 'Id inválido!']
+                : $cliente,
+            404
+        );
     }
 
     /**
