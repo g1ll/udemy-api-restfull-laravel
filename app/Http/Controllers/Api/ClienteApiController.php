@@ -93,8 +93,6 @@ class ClienteApiController extends Controller
         $dataForm = $this->req->all();
         // return response()->json($dataForm,201);
         try {
-            if ($cliente->image)
-                Storage::disk('public')->delete("clientes/$cliente->image");
             if ($this->req->hasFile('image')) { // && $this->req->file('image')->isValid()){
                 $extension = $this->req->image->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
@@ -104,11 +102,14 @@ class ClienteApiController extends Controller
                 if (!$upload) {
                     return response()->json(['error', 'Save image fail!'], 500);
                 } else {
+                    if ($cliente->image)
+                        Storage::disk('public')->delete("clientes/$cliente->image");
                     $dataForm['image'] = $nameFile;
                 }
-            } else {
-                return response()->json(['error' => 'Upload image fail!'], 400);
             }
+            //  else {
+            //     return response()->json(['error' => 'Upload image fail!'], 400);
+            // }
         } catch (Exception $error) {
             return response()->json(['error' => $error->getMessage()], 400);
         }
