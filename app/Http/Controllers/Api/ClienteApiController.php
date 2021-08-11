@@ -113,8 +113,8 @@ class ClienteApiController extends Controller
             return response()->json(['error' => $error->getMessage()], 400);
         }
 
-        $data = $cliente->update($dataForm);
-        return response()->json($data, 201);
+        $cliente->update($dataForm);
+        return response()->json($cliente);
     }
 
     /**
