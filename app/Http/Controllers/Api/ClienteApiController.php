@@ -86,7 +86,10 @@ class ClienteApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(!$cliente = $this->cliente->find($id))
+            return response()->json(['error'=>'Id inválido!'],404);
+
+
     }
 
     /**
@@ -104,7 +107,7 @@ class ClienteApiController extends Controller
             Storage::disk('public')->delete("clientes/$cliente->image");
 
         $cliente->delete();
-        return response()->json(['success'=>'Cliente removido!']);
+        return response()->json(['success'=>'Cliente removido!']);C
 
     }
 }
