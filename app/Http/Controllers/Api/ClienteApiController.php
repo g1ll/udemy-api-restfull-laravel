@@ -86,10 +86,35 @@ class ClienteApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!$cliente = $this->cliente->find($id))
-            return response()->json(['error'=>'Id inválido!'],404);
+        if (!$cliente = $this->cliente->find($id)) {
+            return response()->json(['error' => 'Id inválido!'], 404);
+        }
+        $this->validate($this->req, $this->cliente->rules());
+        $dataForm = $this->req->all();
+        // return response()->json($dataForm,201);
+        try {
+            if ($cliente->image)
+                Storage::disk('public')->delete("clientes/$cliente->image");
+            if ($this->req->hasFile('image')) { // && $this->req->file('image')->isValid()){
+                $extension = $this->req->image->extension();
+                $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
+                $nameFile = "$imgName.$extension";
+                $upload = Image::make($this->req->image)->resize(177, 236)
+                    ->save(storage_path("app/public/clientes/$nameFile"), 70);
+                if (!$upload) {
+                    return response()->json(['error', 'Save image fail!'], 500);
+                } else {
+                    $dataForm['image'] = $nameFile;
+                }
+            } else {
+                return response()->json(['error' => 'Upload image fail!'], 400);
+            }
+        } catch (Exception $error) {
+            return response()->json(['error' => $error->getMessage()], 400);
+        }
 
-
+        $data = $cliente->update($dataForm);
+        return response()->json($data, 201);
     }
 
     /**
@@ -100,14 +125,13 @@ class ClienteApiController extends Controller
      */
     public function destroy($id)
     {
-        if(!$cliente = $this->cliente->find($id))
-            return response()->json(['error'=>'Id inválido!'],404);
+        if (!$cliente = $this->cliente->find($id))
+            return response()->json(['error' => 'Id inválido!'], 404);
 
-        if($cliente->image)
+        if ($cliente->image)
             Storage::disk('public')->delete("clientes/$cliente->image");
 
         $cliente->delete();
-        return response()->json(['success'=>'Cliente removido!']);C
-
+        return response()->json(['success' => 'Cliente removido!']);
     }
 }
