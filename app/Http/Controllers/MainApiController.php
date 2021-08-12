@@ -45,12 +45,12 @@ class MainApiController extends BaseController
                 $upload = Image::make($this->req->image)->resize(177, 236)
                     ->save(storage_path("app/public/$this->path/$nameFile"), 70);
                 if (!$upload) {
-                    return response()->json(['error', 'Uplado of file fail!'], 500);
+                    throw 'Uplado of file fail!';
                 } else {
                     $dataForm[$this->upload] = $nameFile;
                 }
             } else {
-                return response()->json(['error' => 'Upload image fail!'], 400);
+                throw 'Upload image fail!';
             }
         } catch (Exception $error) {
             return response()->json(['error' => $error->getMessage()], 400);
