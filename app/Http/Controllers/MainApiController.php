@@ -92,7 +92,7 @@ class MainApiController extends BaseController
         $dataForm = $this->req->all();
         // return response()->json($dataForm,201);
         try {
-            if ($this->req->hasFile($this->uplaod)) { // && $this->req->file($this->uplaod)->isValid()){
+            if ($this->req->hasFile($this->upload)) { // && $this->req->file($this->uplaod)->isValid()){
                 $extension = $this->req->image->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
@@ -103,7 +103,7 @@ class MainApiController extends BaseController
                 } else {
                     if ($cliente->image)
                         Storage::disk('public')->delete("$this->path/$cliente->image");
-                    $dataForm[$this->uplaod] = $nameFile;
+                    $dataForm[$this->upload] = $nameFile;
                 }
             }
             //  else {
