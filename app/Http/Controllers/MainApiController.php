@@ -38,16 +38,16 @@ class MainApiController extends BaseController
         $dataForm = $this->req->all();
         // return response()->json($dataForm,201);
         try {
-            if ($this->req->hasFile($this->uplaod)) { // && $this->req->file($this->uplaod)->isValid()){
+            if ($this->req->hasFile($this->upload)) { // && $this->req->file($this->uplaod)->isValid()){
                 $extension = $this->req->image->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
                 $upload = Image::make($this->req->image)->resize(177, 236)
-                    ->save(storage_path("app/public/clientes/$nameFile"), 70);
+                    ->save(storage_path("app/public/$this->path/$nameFile"), 70);
                 if (!$upload) {
                     return response()->json(['error', 'Uplado of file fail!'], 500);
                 } else {
-                    $dataForm[$this->uplaod] = $nameFile;
+                    $dataForm[$this->upload] = $nameFile;
                 }
             } else {
                 return response()->json(['error' => 'Upload image fail!'], 400);
@@ -96,12 +96,12 @@ class MainApiController extends BaseController
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
                 $upload = Image::make($this->req->image)->resize(177, 236)
-                    ->save(storage_path("app/public/clientes/$nameFile"), 70);
+                    ->save(storage_path("app/public/$this->path/$nameFile"), 70);
                 if (!$upload) {
                     return response()->json(['error', 'Save image fail!'], 500);
                 } else {
                     if ($cliente->image)
-                        Storage::disk('public')->delete("clientes/$cliente->image");
+                        Storage::disk('public')->delete("$this->path/$cliente->image");
                     $dataForm[$this->uplaod] = $nameFile;
                 }
             }
@@ -128,7 +128,7 @@ class MainApiController extends BaseController
             return response()->json(['error' => 'Id inválido!'], 404);
 
         if ($cliente->image)
-            Storage::disk('public')->delete("clientes/$cliente->image");
+            Storage::disk('public')->delete("$this->path/$cliente->image");
 
         $cliente->delete();
         return response()->json(['success' => 'Cliente removido!']);
