@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -45,12 +46,12 @@ class MainApiController extends BaseController
                 $upload = Image::make($this->req->image)->resize(177, 236)
                     ->save(storage_path("app/public/$this->path/$nameFile"), 70);
                 if (!$upload) {
-                    throw 'Uplado of file fail!';
+                    throw new Exception("Uplado of file fail!");
                 } else {
                     $dataForm[$this->upload] = $nameFile;
                 }
             } else {
-                throw 'Upload image fail!';
+                throw new Exception("Upload image fail!");
             }
         } catch (Exception $error) {
             return response()->json(['error' => $error->getMessage()], 400);
