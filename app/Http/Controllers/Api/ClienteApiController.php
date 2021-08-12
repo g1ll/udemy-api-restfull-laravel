@@ -11,9 +11,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ClienteApiController extends MainApiController
 {
-    public function __construct(Cliente $cliente, Request $req)
+
+    protected $model;
+    protected $path = 'cliente';
+
+    public function __construct(Cliente $clientes, Request $req)
     {
-        $this->model = $cliente;
+        $this->model = $clientes;
         $this->req = $req;
         // $this->model = new Cliente();
     }
