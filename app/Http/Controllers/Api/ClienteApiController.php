@@ -10,7 +10,7 @@ class ClienteApiController extends MainApiController
 {
 
     protected $model;
-    protected $path = 'cliente';
+    protected $path = 'clientes';
     protected $upload = 'image';
 
     public function __construct(Cliente $clientes, Request $req)
