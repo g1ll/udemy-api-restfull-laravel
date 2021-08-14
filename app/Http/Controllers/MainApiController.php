@@ -101,8 +101,8 @@ class MainApiController extends BaseController
                 if (!$upload) {
                     return response()->json(['error', 'Save image fail!'], 500);
                 } else {
-                    if ($model->file())
-                        Storage::disk('public')->delete("$this->path/{$model->file()}");
+                    if ($model->file($id))
+                        Storage::disk('public')->delete("$this->path/{$model->file($id)}");
                     $dataForm[$this->upload] = $nameFile;
                 }
             }
@@ -128,8 +128,8 @@ class MainApiController extends BaseController
         if (!$model = $this->model->find($id))
             return response()->json(['error' => 'Id inválido!'], 404);
 
-        if ($model->file())
-            Storage::disk('public')->delete("$this->path/{$model->file()}");
+        if ($model->file($id))
+            Storage::disk('public')->delete("$this->path/{$model->file($id)}");
 
         $model->delete();
         return response()->json(['success' => 'registro removido!']);
