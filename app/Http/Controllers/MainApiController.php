@@ -85,7 +85,7 @@ class MainApiController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        if (!$cliente = $this->model->find($id)) {
+        if (!$model = $this->model->find($id)) {
             return response()->json(['error' => 'Id inválido!'], 404);
         }
         $this->validate($this->req, $this->model->rules());
@@ -101,8 +101,8 @@ class MainApiController extends BaseController
                 if (!$upload) {
                     return response()->json(['error', 'Save image fail!'], 500);
                 } else {
-                    if ($cliente->image)
-                        Storage::disk('public')->delete("$this->path/$cliente->image");
+                    if ($model->image)
+                        Storage::disk('public')->delete("$this->path/$model->image");
                     $dataForm[$this->upload] = $nameFile;
                 }
             }
@@ -113,8 +113,8 @@ class MainApiController extends BaseController
             return response()->json(['error' => $error->getMessage()], 400);
         }
 
-        $cliente->update($dataForm);
-        return response()->json($cliente);
+        $model->update($dataForm);
+        return response()->json($model);
     }
 
     /**
