@@ -40,7 +40,7 @@ class MainApiController extends BaseController
         // return response()->json($dataForm,201);
         try {
             if ($this->req->hasFile($this->upload)) { // && $this->req->file($this->uplaod)->isValid()){
-                $extension = $this->req->image->extension();
+                $extension = $this->req->file($this->upload)->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
                 $upload = Image::make($this->req->image)->resize(177, 236)
