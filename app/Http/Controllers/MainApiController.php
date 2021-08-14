@@ -128,8 +128,8 @@ class MainApiController extends BaseController
         if (!$model = $this->model->find($id))
             return response()->json(['error' => 'Id inválido!'], 404);
 
-        if ($model->file($id))
-            Storage::disk('public')->delete("$this->path/{$model->file($id)}");
+        if (method_exists($this->model,'file'))
+            Storage::disk('public')->delete("$this->path/{$this->model->file($id)}");
 
         $model->delete();
         return response()->json(['success' => 'registro removido!']);
