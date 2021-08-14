@@ -125,13 +125,13 @@ class MainApiController extends BaseController
      */
     public function destroy($id)
     {
-        if (!$cliente = $this->model->find($id))
+        if (!$model = $this->model->find($id))
             return response()->json(['error' => 'Id inválido!'], 404);
 
-        if ($cliente->image)
-            Storage::disk('public')->delete("$this->path/$cliente->image");
+        if ($model->image)
+            Storage::disk('public')->delete("$this->path/$model->image");
 
-        $cliente->delete();
-        return response()->json(['success' => 'Cliente removido!']);
+        $model->delete();
+        return response()->json(['success' => 'registro removido!']);
     }
 }
