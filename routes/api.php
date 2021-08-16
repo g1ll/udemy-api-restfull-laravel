@@ -26,3 +26,4 @@ Route::apiResource('clientes',ClienteApiController::class);
 Route::apiResource('documentos',DocumentoApiController::class);
 
 Route::get('documento/{id}/cliente',[DocumentoApiController::class,'cliente']);
+Route::get('cliente/{id}/documento',[ClienteApiController::class,'documento']);
