@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Documento;
 
 class Cliente extends Model
 {
@@ -25,5 +26,10 @@ class Cliente extends Model
     {
         $file = $this->find($id);
         return $file->image;
+    }
+
+    public function documento()
+    {
+        return $this->hasOne(Documento::class,'cliente_id','id');
     }
 }
