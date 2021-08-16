@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 class DocumentoApiController extends MainApiController
 {
     protected $model;
+    protected $upload;
+    protected $path;
 
     public function __construct(Documento $doc, Request $req)
     {
