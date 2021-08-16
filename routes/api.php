@@ -24,3 +24,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::get('clientes',[ClienteApiController::class,'index']);
 Route::apiResource('clientes',ClienteApiController::class);
 Route::apiResource('documentos',DocumentoApiController::class);
+
+Route::get('documento/{id}/cliente',[DocumentoApiController::class,'cliente']);
