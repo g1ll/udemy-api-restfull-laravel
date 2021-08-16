@@ -16,7 +16,7 @@ class MainApiController extends BaseController
 {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
- /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -35,11 +35,12 @@ class MainApiController extends BaseController
      */
     public function store()
     {
-        $this->validate($this->req, $this->model->rules());
-        $dataForm = $this->req->all();
-        // return response()->json($dataForm,201);
         try {
-            if ($this->req->hasFile($this->upload)) { // && $this->req->file($this->uplaod)->isValid()){
+            $this->validate($this->req, $this->model->rules());
+            $dataForm = $this->req->all();
+            // return response()->json($dataForm,201);
+
+            if ($this->req->hasFile($this->upload) && $this->upload != null) { // && $this->req->file($this->uplaod)->isValid()){
                 $extension = $this->req->file($this->upload)->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
@@ -50,15 +51,12 @@ class MainApiController extends BaseController
                 } else {
                     $dataForm[$this->upload] = $nameFile;
                 }
-            } else {
-                throw new Exception("Upload image fail!");
             }
+            $data = $this->model->create($dataForm);
+            return response()->json($data, 201);
         } catch (Exception $error) {
             return response()->json(['error' => $error->getMessage()], 400);
         }
-
-        $data = $this->model->create($dataForm);
-        return response()->json($data, 201);
     }
 
     /**
@@ -128,7 +126,7 @@ class MainApiController extends BaseController
         if (!$model = $this->model->find($id))
             return response()->json(['error' => 'Id inválido!'], 404);
 
-        if (method_exists($this->model,'file'))
+        if (method_exists($this->model, 'file'))
             Storage::disk('public')->delete("$this->path/{$this->model->file($id)}");
 
         $model->delete();
