@@ -21,7 +21,7 @@ class ClienteApiController extends MainApiController
 
     public function documento($id)
     {
-        $doc_ciente = $this->model->with('documente')->find($id);
+        $doc_ciente = $this->model->with('documento')->find($id);
         return response()->json(
             (!$doc_ciente) ? ['error' => 'Id inválido!'] : $doc_ciente,
             (!$doc_ciente) ? 404 : 200
