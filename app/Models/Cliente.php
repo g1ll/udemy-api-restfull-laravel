@@ -11,7 +11,6 @@ class Cliente extends Model
     protected $fillable = [
         'nome',
         'image',
-        'cpf_cnpj'
     ];
 
     public function rules()
@@ -19,7 +18,6 @@ class Cliente extends Model
         return [
             'nome'=>'required',
             'image'=>'image',
-            'cpf_cnpj'=>'required|unique:clientes'
         ];
     }
 
