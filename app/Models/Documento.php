@@ -9,15 +9,20 @@ class Documento extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'client_id',
+        'cliente_id',
         'cpf_cnpj',
     ];
 
     public function rules()
     {
         return [
-            'client_id'=>'required',
+            'cliente_id'=>'required',
             'cpf_cnpj'=>'required|unique:documentos'
         ];
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class,'cliente_id','id');
     }
 }

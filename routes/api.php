@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ClienteApiController;
+use App\Http\Controllers\Api\DocumentoApiController;
 use Facade\FlareClient\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
 Route::apiResource('clientes',ClienteApiController::class);
+Route::apiResource('documentos',DocumentoApiController::class);
