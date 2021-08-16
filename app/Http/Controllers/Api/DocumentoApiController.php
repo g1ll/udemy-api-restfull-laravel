@@ -17,4 +17,13 @@ class DocumentoApiController extends MainApiController
         $this->model = $doc;
         $this->req = $req;
     }
+
+    public function cliente($id)
+    {
+        $doc_ciente = $this->model->with('cliente')->find($id);
+        return response()->json(
+            (!$doc_ciente) ? ['error' => 'Id inválido!'] : $doc_ciente,
+            (!$doc_ciente) ? 404 : 200
+        );
+    }
 }
