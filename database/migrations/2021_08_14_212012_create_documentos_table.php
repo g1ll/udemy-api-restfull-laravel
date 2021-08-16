@@ -15,6 +15,10 @@ class CreateDocumentosTable extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('cliente_id')->unsigned();
+            $table->foreign('cliente_id')->references('id')->on('clientes')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            $table->string('cpf_cnpj')->unique()->comment('Campo único para CPF ou CNPJ.');
             $table->timestamps();
         });
     }
