@@ -28,5 +28,14 @@ class ClienteApiController extends MainApiController
         );
     }
 
+    public function telefones($id)
+    {
+        $telefones = $this->model->with('telefone')->find($id);
+        return response()->json(
+            (!$telefones) ? ['error' => 'Id inválido!'] : $telefones,
+            (!$telefones) ? 404 : 200
+        );
+    }
+
 
 }
