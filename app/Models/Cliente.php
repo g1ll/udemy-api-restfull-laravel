@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Documento;
+use App\Models\Telefone;
 
 class Cliente extends Model
 {
@@ -31,5 +32,10 @@ class Cliente extends Model
     public function documento()
     {
         return $this->hasOne(Documento::class,'cliente_id','id');
+    }
+
+    public function telefone()
+    {
+        return $this->hasMany(Telefone::class,'cliente_id', 'id');
     }
 }
