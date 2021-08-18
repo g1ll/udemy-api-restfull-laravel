@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\ClienteApiController;
 use App\Http\Controllers\Api\DocumentoApiController;
 use App\Http\Controllers\Api\TelefoneApiController;
-use Facade\FlareClient\Api;
+use App\Http\Controllers\Api\FilmeApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +24,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
 
-Route::get('documento/{id}/cliente',[DocumentoApiController::class,'cliente']);
+
+//Rotas de Clientes
 Route::get('cliente/{id}/documento',[ClienteApiController::class,'documento']);
 Route::get('cliente/{id}/telefones',[ClienteApiController::class,'telefones']);
-Route::get('telefones/{id}/cliente',[TelefoneApiController::class,'cliente']);
-
 Route::apiResource('clientes',ClienteApiController::class);
+
+//Rotas de Documentos
+Route::get('documento/{id}/cliente',[DocumentoApiController::class,'cliente']);
 Route::apiResource('documentos',DocumentoApiController::class);
+
+//Rotas de Telefones
+Route::get('telefones/{id}/cliente',[TelefoneApiController::class,'cliente']);
 Route::apiResource('telefones',TelefoneApiController::class);
+
+//Rota de Filmes
+Route::apiResource('filme',FilmeApiController::class);
