@@ -12,6 +12,8 @@ class ClienteApiController extends MainApiController
     protected $model;
     protected $path = 'clientes';
     protected $upload = 'image';
+    protected $width = 177;
+    protected $height = 236;
 
     public function __construct(Cliente $clientes, Request $req)
     {
