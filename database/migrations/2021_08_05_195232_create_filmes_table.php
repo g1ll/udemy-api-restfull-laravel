@@ -15,6 +15,8 @@ class CreateFilmesTable extends Migration
     {
         Schema::create('filmes', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo',150)->comment('Nome do Filme');
+            $table->string('capa',100)->nullable()->comment('Imagem de cartaz do Filme.');
             $table->timestamps();
         });
     }
