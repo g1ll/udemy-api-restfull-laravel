@@ -44,8 +44,11 @@ class MainApiController extends BaseController
                 $extension = $this->req->file($this->upload)->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
-                $upload = Image::make($this->req->image)->resize(177, 236)
-                    ->save(storage_path("app/public/$this->path/$nameFile"), 70);
+                $upload = Image::make($this->req->image)
+                                ->resize($this->width, $this->height)
+                                ->save(
+                                    storage_path("app/public/$this->path/$nameFile"),
+                                    70);
                 if (!$upload) {
                     throw new Exception("Uplado of file fail!");
                 } else {
@@ -94,7 +97,8 @@ class MainApiController extends BaseController
                 $extension = $this->req->file($this->upload)->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
-                $upload = Image::make($this->req->image)->resize(177, 236)
+                $upload = Image::make($this->req->image)
+                    ->resize($this->width, $this->height)
                     ->save(storage_path("app/public/$this->path/$nameFile"), 70);
                 if (!$upload) {
                     return response()->json(['error', 'Save image fail!'], 500);
