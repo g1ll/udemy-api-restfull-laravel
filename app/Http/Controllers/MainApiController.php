@@ -36,7 +36,6 @@ class MainApiController extends BaseController
      */
     public function store()
     {
-
         try {
             $this->validate($this->req, $this->model->rules());
             $dataForm = $this->req->all();
@@ -48,7 +47,7 @@ class MainApiController extends BaseController
                 $upload = Image::make($this->req->file($this->upload))
                     ->resize($this->width, $this->height)
                     ->save(
-                        storage_path("app/publics/$this->path/$nameFile"),
+                        storage_path("app/public/$this->path/$nameFile"),
                         70
                     );
                 if (!$upload) {
@@ -60,7 +59,7 @@ class MainApiController extends BaseController
             $data = $this->model->create($dataForm);
             return response()->json($data, 201);
         } catch (Exception $error) {
-            $this->mainApiError($error);
+            return $this->mainApiError($error);
         }
     }
 
@@ -116,7 +115,7 @@ class MainApiController extends BaseController
             $model->update($dataForm);
             return response()->json($model);
         } catch (Exception $error) {
-           $this->mainApiError($error);
+            return $this->mainApiError($error);
         }
     }
 
