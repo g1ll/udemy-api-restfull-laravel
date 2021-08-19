@@ -28,6 +28,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Rotas de Clientes
 Route::get('cliente/{id}/documento',[ClienteApiController::class,'documento']);
 Route::get('cliente/{id}/telefones',[ClienteApiController::class,'telefones']);
+Route::get('cliente/{id}/filmes-alugados',[ClienteApiController::class,'alugados']);
 Route::apiResource('clientes',ClienteApiController::class);
 
 //Rotas de Documentos
