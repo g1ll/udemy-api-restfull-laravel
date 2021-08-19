@@ -10,7 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Validation\ValidationException;
 
 class MainApiController extends BaseController
 {
@@ -36,6 +36,7 @@ class MainApiController extends BaseController
      */
     public function store()
     {
+
         try {
             $this->validate($this->req, $this->model->rules());
             $dataForm = $this->req->all();
@@ -47,7 +48,7 @@ class MainApiController extends BaseController
                 $upload = Image::make($this->req->file($this->upload))
                                 ->resize($this->width, $this->height)
                                 ->save(
-                                    storage_path("app/public/$this->path/$nameFile"),
+                                    storage_path("app/publics/$this->path/$nameFile"),
                                     70);
                 if (!$upload) {
                     throw new Exception("Uplado of file fail!");
@@ -58,7 +59,12 @@ class MainApiController extends BaseController
             $data = $this->model->create($dataForm);
             return response()->json($data, 201);
         } catch (Exception $error) {
-            return response()->json(['error' => $error->getMessage()], 400);
+            $error_msg = ['error'=>$error->getMessage()];
+
+            if($error instanceof ValidationException)
+                array_push($error_msg,['msg:'=>$error->errors()]);
+
+            return response()->json($error_msg, 400);
         }
     }
 
