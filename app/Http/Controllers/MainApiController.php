@@ -39,12 +39,11 @@ class MainApiController extends BaseController
             $this->validate($this->req, $this->model->rules());
             $dataForm = $this->req->all();
             // return response()->json($dataForm,201);
-
             if ($this->req->hasFile($this->upload) && $this->upload != null) { // && $this->req->file($this->uplaod)->isValid()){
                 $extension = $this->req->file($this->upload)->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
-                $upload = Image::make($this->req->image)
+                $upload = Image::make($this->req->file($this->upload))
                                 ->resize($this->width, $this->height)
                                 ->save(
                                     storage_path("app/public/$this->path/$nameFile"),
@@ -97,7 +96,8 @@ class MainApiController extends BaseController
                 $extension = $this->req->file($this->upload)->extension();
                 $imgName = uniqid(date('His')); //Unique ID based on date hour, minute and seconds.
                 $nameFile = "$imgName.$extension";
-                $upload = Image::make($this->req->image)
+                dd($this->req[$this->upload]);
+                $upload = Image::make($this->req[$this->upload])
                     ->resize($this->width, $this->height)
                     ->save(storage_path("app/public/$this->path/$nameFile"), 70);
                 if (!$upload) {
