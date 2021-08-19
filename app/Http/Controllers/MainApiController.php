@@ -23,8 +23,8 @@ class MainApiController extends BaseController
      */
     public function index()
     {
-        // $data = $this->model->all();
-        $data = $this->model->paginate(10);
+        $data = $this->model->all();
+        // $data = $this->model->paginate(10);
         return response()->json($data);
     }
 
