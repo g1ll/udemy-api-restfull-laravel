@@ -38,4 +38,10 @@ class Cliente extends Model
     {
         return $this->hasMany(Telefone::class,'cliente_id', 'id');
     }
+
+    public function filmesAlugados()
+    {
+        return $this->belongsToMany(Filme::class,'locacaos');
+    }
+
 }
