@@ -39,5 +39,14 @@ class ClienteApiController extends MainApiController
         );
     }
 
+    public function alugados($id)
+    {
+        $alugados = $this->model->with('filmesAlugados')->find($id);
+        return response()->json(
+            (!$alugados) ? ['error' => 'Id inválido!'] : $alugados,
+            (!$alugados) ? 404 : 200
+        );
+    }
+
 
 }
