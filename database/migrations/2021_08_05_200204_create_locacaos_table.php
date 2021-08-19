@@ -18,8 +18,8 @@ class CreateLocacaosTable extends Migration
             $table->bigInteger('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->bigInteger('filmes_id')->unsigned();
-            $table->foreign('filmes_id')->references('id')->on('filmes')
+            $table->bigInteger('filme_id')->unsigned();
+            $table->foreign('filme_id')->references('id')->on('filmes')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->date('data_locacao');
             $table->timestamps();
