@@ -14,11 +14,18 @@ class ClienteApiController extends MainApiController
     protected $upload = 'image';
     protected $width = 177;
     protected $height = 236;
+    protected $totalPage = 20;
 
     public function __construct(Cliente $clientes, Request $req)
     {
         $this->model = $clientes;
         $this->req = $req;
+    }
+
+    public function index()
+    {
+        $data = $this->model->paginate($this->totalPage);
+        return response()->json($data);
     }
 
     public function documento($id)
