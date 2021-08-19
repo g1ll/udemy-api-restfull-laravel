@@ -19,6 +19,6 @@ class FilmeApiController extends MainApiController
     {
         $this->model = $filme;
         $this->req = $req;
-        // dd($req);
+        // dd($req[$this->upload]);
     }
 }
