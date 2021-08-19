@@ -141,9 +141,11 @@ class MainApiController extends BaseController
     {
         $error_msg = ['error' => $error->getMessage()];
 
-        if ($error instanceof ValidationException)
-            array_push($error_msg, ['msg:' => $error->errors()]);
-
+        if ($error instanceof ValidationException){
+            foreach($error->errors() as $erro)
+                $errors[] = $erro[0];
+            $error_msg['validation'] = $errors;
+        }
         return response()->json($error_msg, 400);
     }
 }
