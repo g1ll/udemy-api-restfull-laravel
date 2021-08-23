@@ -22,7 +22,10 @@ class AuthenticateController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'authenticate']]);
+        $this->middleware('auth:api', ['except' => [
+                                                    'login',
+                                                     'authenticate',
+                                                     'getAuthenticatedUser']]);
     }
 
     public function authenticate(Request $request)
@@ -59,11 +62,11 @@ class AuthenticateController extends Controller
                 return response()->json(['user_not_found'], 404);
             }
         } catch (TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
+            return response()->json(['token_expired'=>$e->getMessage()], 404);
         } catch (TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['token_invalid'=> $e->getMessage()], 404);
         } catch (JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+            return response()->json(['token_absent'=>$e->getMessage()],404);
         }
         return response()->json(auth()->user());
     }
