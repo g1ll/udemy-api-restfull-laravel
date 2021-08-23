@@ -33,7 +33,7 @@ class AuthenticateController extends Controller
         //grab credentials from the request
         $credentials = $request->only('email', 'password');
         // return response()->json($credentials);
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -48,7 +48,7 @@ class AuthenticateController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -89,7 +89,7 @@ class AuthenticateController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        Auth::logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -101,7 +101,7 @@ class AuthenticateController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(Auth::refresh());
     }
 
     /**
@@ -118,7 +118,7 @@ class AuthenticateController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'user' => $user,
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => Auth::factory()->getTTL() * 60
         ]);
     }
 }
