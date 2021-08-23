@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\FilmeApiController;
 use App\Http\Controllers\Auth\AuthAuthenticateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticateController;
 
 /*
 |--------------------------------------------------------------------------
