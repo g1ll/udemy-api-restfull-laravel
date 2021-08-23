@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 // use Tymon\JWTAuth\Facades\JWTAuth;
 // use Tymon\JWTAuth\Exceptions\JWTException;
 
-class AuthAuthenticateController extends Controller
+class AuthenticateController extends Controller
 {
     /**
      * Create a new AuthController instance.
