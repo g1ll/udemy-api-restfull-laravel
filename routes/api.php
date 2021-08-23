@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\ClienteApiController;
 use App\Http\Controllers\Api\DocumentoApiController;
 use App\Http\Controllers\Api\TelefoneApiController;
 use App\Http\Controllers\Api\FilmeApiController;
-use App\Http\Controllers\Auth\AuthAuthenticateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticateController;
@@ -25,6 +24,7 @@ use App\Http\Controllers\Auth\AuthenticateController;
 // });
 
 Route::post('login',[AuthenticateController::class,'authenticate']);
+Route::get('me',[AuthenticateController::class,'getAuthenticatedUser']);
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
 
