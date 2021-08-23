@@ -20,6 +20,17 @@ class AuthAuthenticateController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
+    public function authenticate(Request $request)
+    {
+        //grab credentials from the request
+        $credentials = $request->only('email','password');
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return $this->respondWithToken($token);
+
+    }
+
     /**
      * Get a JWT via given credentials.
      *
