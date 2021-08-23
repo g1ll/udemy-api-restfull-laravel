@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ClienteApiController;
 use App\Http\Controllers\Api\DocumentoApiController;
 use App\Http\Controllers\Api\TelefoneApiController;
 use App\Http\Controllers\Api\FilmeApiController;
+use App\Http\Controllers\Auth\AuthAuthenticateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('login',[AuthenticateController::class,'authenticate']);
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
 
