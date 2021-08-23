@@ -17,13 +17,15 @@ class AuthenticateController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','authenticate']]);
+
     }
 
     public function authenticate(Request $request)
     {
         //grab credentials from the request
         $credentials = $request->only('email','password');
+        // return response()->json($credentials);
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
