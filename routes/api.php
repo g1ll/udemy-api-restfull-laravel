@@ -24,6 +24,7 @@ use App\Http\Controllers\Auth\AuthenticateController;
 // });
 
 Route::post('login',[AuthenticateController::class,'authenticate']);
+Route::post('login-refresh',[AuthenticateController::class,'refreshToken']);
 Route::get('me',[AuthenticateController::class,'getAuthenticatedUser']);
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
