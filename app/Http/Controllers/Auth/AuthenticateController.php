@@ -28,10 +28,22 @@ class AuthenticateController extends Controller
                 'except' => [
                     'login',
                     'authenticate',
-                    'getAuthenticatedUser'
+                    'getAuthenticatedUser',
+                    'refreshToken'
                 ]
             ]
         );
+    }
+
+    public function refreshToken()
+    {
+        if(!$token = JWTAuth::getToken())
+            return response()->json(['error'=>'token_not_send'],401);
+        try{
+            return $this->refresh();
+        }catch(TokenInvalidException $e){
+            return response()->json(['token_invalid' => $e->getMessage()], 404);
+        }
     }
 
     public function authenticate(Request $request)
@@ -57,7 +69,6 @@ class AuthenticateController extends Controller
         if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 
