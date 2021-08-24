@@ -23,26 +23,35 @@ use App\Http\Controllers\Auth\AuthenticateController;
 //     return $request->user();
 // });
 
-Route::post('login',[AuthenticateController::class,'authenticate']);
-Route::post('login-refresh',[AuthenticateController::class,'refreshToken']);
-Route::get('me',[AuthenticateController::class,'getAuthenticatedUser']);
+Route::post('login', [AuthenticateController::class, 'authenticate']);
+Route::post('login-refresh', [AuthenticateController::class, 'refreshToken']);
+Route::get('me', [AuthenticateController::class, 'getAuthenticatedUser']);
 
 // Route::get('clientes',[ClienteApiController::class,'index']);
 
 
-//Rotas de Clientes
-Route::get('cliente/{id}/documento',[ClienteApiController::class,'documento']);
-Route::get('cliente/{id}/telefones',[ClienteApiController::class,'telefones']);
-Route::get('cliente/{id}/filmes-alugados',[ClienteApiController::class,'alugados']);
-Route::apiResource('clientes',ClienteApiController::class);
+Route::middleware('auth:api')->group(function () {
+    // Route::group([
 
-//Rotas de Documentos
-Route::get('documento/{id}/cliente',[DocumentoApiController::class,'cliente']);
-Route::apiResource('documentos',DocumentoApiController::class);
+    //     'middleware' => 'auth:api',
+    //     // 'prefix' => 'auth'
 
-//Rotas de Telefones
-Route::get('telefones/{id}/cliente',[TelefoneApiController::class,'cliente']);
-Route::apiResource('telefones',TelefoneApiController::class);
+    // ], function ($router) {
+    //Rotas de Clientes
+    Route::get('cliente/{id}/documento', [ClienteApiController::class, 'documento']);
+    Route::get('cliente/{id}/telefones', [ClienteApiController::class, 'telefones']);
+    Route::get('cliente/{id}/filmes-alugados', [ClienteApiController::class, 'alugados']);
+    Route::apiResource('clientes', ClienteApiController::class);
 
-//Rota de Filmes
-Route::apiResource('filme',FilmeApiController::class);
+    //Rotas de Documentos
+    Route::get('documento/{id}/cliente', [DocumentoApiController::class, 'cliente']);
+    Route::apiResource('documentos', DocumentoApiController::class);
+
+    //Rotas de Telefones
+    Route::get('telefones/{id}/cliente', [TelefoneApiController::class, 'cliente']);
+    Route::apiResource('telefones', TelefoneApiController::class);
+
+    //Rota de Filmes
+    Route::apiResource('filme', FilmeApiController::class);
+
+});
