@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ClienteApiController;
 use App\Http\Controllers\Api\DocumentoApiController;
 use App\Http\Controllers\Api\TelefoneApiController;
 use App\Http\Controllers\Api\FilmeApiController;
+use App\Http\Controllers\Api\FornecedorApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticateController;
@@ -53,5 +54,6 @@ Route::middleware('auth:api')->group(function () {
 
     //Rota de Filmes
     Route::apiResource('filme', FilmeApiController::class);
+    Route::apiResource('fornecedores', FornecedorApiController::class);
 
 });
