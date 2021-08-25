@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\MainApiController;
 use Illuminate\Http\Request;
+use App\Models\Fornecedor;
 
-class FornecedorApiController extends Controller
+class FornecedorApiController extends MainApiController
 {
-    protected $request;
+    protected $model;
+    protected $path = 'fornecedor';
+    protected $upload = null;
+    protected $width = 0;
+    protected $height = 0;
+    protected $totalPage = 20;
 
-
-    public function __construct(Request $req)
+    public function __construct(Fornecedor $fornecedor, Request $req)
     {
-        $this->request = $req;
+        $this->model = $fornecedor;
+        $this->req = $req;
     }
 }
