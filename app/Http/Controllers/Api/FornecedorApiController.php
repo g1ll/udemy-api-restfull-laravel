@@ -7,5 +7,11 @@ use Illuminate\Http\Request;
 
 class FornecedorApiController extends Controller
 {
-    //
+    protected $request;
+
+
+    public function __construct(Request $req)
+    {
+        $this->request = $req;
+    }
 }
