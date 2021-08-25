@@ -5,6 +5,9 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -36,6 +39,11 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+            if ($e instanceof TokenExpiredException) {
+                return response()->json(['token_expired'], 401);
+            } if ($e instanceof TokenInvalidException) {
+                return response()->json(['token_invalid'], 401);
+            }
         });
     }
 }
