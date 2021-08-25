@@ -9,8 +9,8 @@ class Fornecedor extends Model
 {
     use HasFactory;
     protected $table = 'fornecedores';
-    protected $primaryKey = 'id_fornecedore';
-    public $timestamp = false;
+    protected $primaryKey = 'id_fornecedor';
+    public $timestamps = false;
 
     protected $fillable = [
         'nome',
